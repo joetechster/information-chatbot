@@ -37,7 +37,7 @@ async function lectureLoader({ params }) {
   const responses = await Promise.all([
     await (await fetchAuth(`lecture/${id}/student/${user.id}/presence/`, {})).json(),
     await (await fetchAuth(`lecture/${id}/present/`, {})).json(),
-    await (await fetchAuth(`lecture/${id}`, {})).json(),
+    await (await fetchAuth(`lecture/${id}/`, {})).json(),
   ]);
   return { ...responses[0], allPresent: responses[1], lecture: responses[2] };
 }

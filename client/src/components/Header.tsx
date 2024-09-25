@@ -1,5 +1,5 @@
 import { Box, Button } from "@mui/material";
-import React from "react";
+import React, { startTransition } from "react";
 import { User } from "./User";
 import { getUser, signOut } from "../utils/auth";
 import { useNavigate } from "react-router-dom";
@@ -20,8 +20,8 @@ export default function Header() {
         startIcon={<LogoutIcon />}
         onClick={() => {
           signOut();
-          navigate("/sign-in");
           alert.success("Signed out successfully");
+          startTransition(() => navigate("/sign-in"));
         }}
       >
         Logout

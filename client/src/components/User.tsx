@@ -12,7 +12,7 @@ export const User = ({ user }: { user: UserType | null | undefined }) => {
           {`${user.first_name} ${user.last_name}`}
         </Typography>
         <Typography variant="caption">
-          {user.type === "instructor" ? "Instructor" : "Student"}
+          {user.type === "instructor" ? "Instructor" : user.username}
         </Typography>
       </Box>
     </Box>

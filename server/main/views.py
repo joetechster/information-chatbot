@@ -1,3 +1,4 @@
+import os
 from rest_framework import status, viewsets, generics
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -6,7 +7,17 @@ from rest_framework.authtoken.models import Token
 from .models import CustomUser, Lecture, Present
 from .serializers import UserSerializer, CustomTokenSerializer, LoginSerializer, LectureSerializer, PresentSerializer
 from django.contrib.auth import authenticate
+from django.conf import settings
+from django.http import HttpResponse, Http404
 
+def index(request):
+  try:
+    # Open the index.html file in the static/frontend folder
+    with open(os.path.join(settings.BASE_DIR, 'static/frontend/index.html')) as f:
+      return HttpResponse(f.read())
+  except FileNotFoundError:
+    raise Http404("index.html not found")
+  
 class SignUpView(APIView):
   def post(self, request):
     user_serializer = UserSerializer(data=request.data, context={"request": request})
