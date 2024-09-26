@@ -10,12 +10,15 @@
       "src": "build_files.sh",
       "use": "@vercel/python",
       "config": {
-        "runtime": "python3.9",
         "distDir": "staticfiles"
       }
     }
   ],
   "routes": [
+    {
+      "src": "/static/(.*)",
+      "dest": "/static/$1"
+    },
     {
       "src": "/(.*)",
       "dest": "main/wsgi.py"
