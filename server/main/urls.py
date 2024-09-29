@@ -17,5 +17,12 @@ urlpatterns = [
     path('api/lecture/<int:lecture_id>/present/', GetAllPresentStudents.as_view(), name='get-all-present-students'),
     path('api/lecture/<int:lecture_id>/student/<int:student_id>/presence/', CheckStudentPresence.as_view(), name='check-student-presence'),
     path('api/', include(router.urls)), 
+]
+
+# Serve media files during development
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+# Catch-all route should be last to prevent interference
+urlpatterns += [
     re_path(r'^.*$', index, name='index'),
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+]
