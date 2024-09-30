@@ -86,15 +86,16 @@ const StudentHome = () => {
   const [scanning, setScanning] = React.useState<Boolean>(false);
   const alert = useAlert();
   const navigate = useNavigate();
-  let html5QrcodeScannerRef = React.useRef(
-    new Html5QrcodeScanner(
+  let html5QrcodeScannerRef = React.useRef<Html5QrcodeScanner>();
+  React.useEffect(() => {
+    html5QrcodeScannerRef.current = new Html5QrcodeScanner(
       "reader",
       { fps: 10, qrbox: { width: 250, height: 250 } },
       /* verbose= */ false
-    )
-  );
+    );
+  }, []);
   function onScanSuccess(fullHref, decodedResult) {
-    html5QrcodeScannerRef.current.pause();
+    html5QrcodeScannerRef.current?.pause();
     // handle the scanned code as you like, for example:
     alert.success("QR Code scanned successfully redirecting you to lecture");
     // Extract the relative path from the full URL
@@ -114,8 +115,9 @@ const StudentHome = () => {
   const openScanner = () => {
     if (scanning) return;
     setScanning(true);
-    html5QrcodeScannerRef.current.render(onScanSuccess, onScanFailure);
+    html5QrcodeScannerRef.current?.render(onScanSuccess, onScanFailure);
   };
+
   return (
     <>
       <Box sx={{ width: "min(100%, 600px)" }}>
