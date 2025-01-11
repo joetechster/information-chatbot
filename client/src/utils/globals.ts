@@ -1,6 +1,7 @@
 import { getUser, User } from "./auth";
 
-export const baseUrl = "https://qr-attendance-nrtb.onrender.com/api/";
+// export const baseUrl = "https://qr-attendance-nrtb.onrender.com/api/";
+export const baseUrl = "http://127.0.0.1:8000/api/";
 
 export type LectureType = {
   id: number;

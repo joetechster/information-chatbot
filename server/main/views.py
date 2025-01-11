@@ -9,7 +9,7 @@ from .serializers import UserSerializer, CustomTokenSerializer, LoginSerializer,
 from django.contrib.auth import authenticate
 from django.conf import settings
 from django.http import HttpResponse, Http404
-from .bot import get_response
+from .bot import askAI 
 
 def index(request):
   try:
@@ -109,9 +109,12 @@ class MarkStudentPresentView(generics.CreateAPIView):
     # Ensure that the request is passed to the serializer context
     return {'request': self.request}
   
+  
 class ChatView(APIView): 
+  permission_classes = [AllowAny]
+
   def post(self, request): 
     question = request.data["question"]
-    context = request.data["context"]
-    res = get_response(question, context)
+    context = request.data.get("context", "")
+    res = askAI(question, context)
     return Response(res.text)
