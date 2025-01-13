@@ -9,10 +9,8 @@ const ChatbotPage = () => {
     { sender: "bot", text: "Hello! How can I assist you today?" },
   ]);
   const [input, setInput] = useState("");
-  const [loading, setLoading] = useState(false);
 
   const handleSendMessage = () => {
-    setLoading(true);
     if (input.trim()) {
       // Add user's message
       setMessages((prevMessages) => [...prevMessages, { sender: "user", text: input }]);
@@ -29,7 +27,6 @@ const ChatbotPage = () => {
         });
 
       setInput("");
-      setLoading(false);
     }
   };
 
